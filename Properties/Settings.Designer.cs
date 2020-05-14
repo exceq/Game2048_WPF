@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Game2048_WPF.Properties
+namespace Game2048.Properties
 {
 
 

@@ -1,0 +1,125 @@
+﻿<Window x:Class="Game2048.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Game2048.View"
+        mc:Ignorable="d"
+        Title="2048" Height="450" Width="450" KeyUp="Key_Down" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
+
+    <!--<Window.DataContext>
+        <local:ViewModel></local:ViewModel>
+    </Window.DataContext>-->
+    <Window.Resources>
+        <Style TargetType="Label" x:Key="Base">
+            <Setter Property="FontSize" Value="48"></Setter>
+            <Setter Property="FontWeight" Value="Bold"></Setter>
+            <Setter Property="FontFamily" Value="Arial"></Setter>
+            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+            <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+            <Setter Property ="Margin" Value="4"></Setter>
+        </Style>
+
+        <Style TargetType="Label" x:Key="0" BasedOn="{StaticResource Base}">
+            <Setter Property="Background" Value="#cdc1b4"></Setter>
+            <Setter Property="Content" Value=""></Setter> 
+        </Style>
+
+        <Style TargetType="Label" x:Key="label_24" BasedOn="{StaticResource Base}">
+            <Setter Property="Foreground" Value="#776e65"></Setter>
+        </Style>
+        
+        <Style TargetType="Label" x:Key="other" BasedOn="{StaticResource Base}">
+            <Setter Property="Foreground" Value="White"></Setter>
+        </Style>
+
+        <Style TargetType="Label" x:Key="2" BasedOn="{StaticResource label_24}">
+            <Setter Property="Background" Value="#eee4da"></Setter>
+            <Setter Property="Content" Value="2"></Setter>
+        </Style>
+
+        <Style TargetType="Label" x:Key="4" BasedOn="{StaticResource label_24}">
+            <Setter Property="Background" Value="#ede0c8"></Setter>
+            <Setter Property="Content" Value="4"></Setter>
+        </Style>
+
+        <Style TargetType="Label" x:Key="8" BasedOn="{StaticResource other}">
+            <Setter Property="Background" Value="#f2b179"></Setter>
+            <Setter Property="Content" Value="8"></Setter>
+        </Style>
+
+        <Style TargetType="Label" x:Key="16" BasedOn="{StaticResource other}">
+            <Setter Property="Background" Value="#f59563"></Setter>
+            <Setter Property="Content" Value="16"></Setter>
+        </Style>
+
+        <Style TargetType="Label" x:Key="32" BasedOn="{StaticResource other}">
+            <Setter Property="Background" Value="#f67c5f"></Setter>
+            <Setter Property="Content" Value="32"></Setter>
+        </Style>
+
+        <Style TargetType="Label" x:Key="64" BasedOn="{StaticResource other}">
+            <Setter Property="Background" Value="#f65e3b"></Setter>
+            <Setter Property="Content" Value="64"></Setter>
+        </Style>
+
+        <Style TargetType="Label" x:Key="128" BasedOn="{StaticResource other}">
+            <Setter Property="Background" Value="#edcf72"></Setter>
+            <Setter Property="Content" Value="128"></Setter>
+        </Style>
+
+        <Style TargetType="Label" x:Key="256" BasedOn="{StaticResource other}">
+            <Setter Property="Background" Value="#edcc61"></Setter>
+            <Setter Property="Content" Value="256"></Setter>
+        </Style>
+
+        <Style TargetType="Label" x:Key="512" BasedOn="{StaticResource other}">
+            <Setter Property="Background" Value="#edc850"></Setter>
+            <Setter Property="Content" Value="512"></Setter>
+        </Style>
+
+        <Style TargetType="Label" x:Key="1024" BasedOn="{StaticResource other}">    
+            <Setter Property="Background" Value="#edc53f"></Setter>
+            <Setter Property="FontSize" Value="36"></Setter>
+            <Setter Property="Content" Value="1024"></Setter>
+        </Style>
+
+        <Style TargetType="Label" x:Key="2048" BasedOn="{StaticResource other}">
+            <Setter Property="Background" Value="#ecc501"></Setter>
+            <Setter Property="FontSize" Value="36"></Setter>
+            <Setter Property="Content" Value="2048"></Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid x:Name="Area" Background="#c2b29a">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" x:Name="l00" Content="{Binding Path=Size}"></Label>
+        <Label Grid.Row="0" Grid.Column="1" x:Name="l01"></Label>
+        <Label Grid.Row="0" Grid.Column="2" x:Name="l02"></Label>
+        <Label Grid.Row="0" Grid.Column="3" x:Name="l03"></Label>
+        <Label Grid.Row="1" Grid.Column="0" x:Name="l10"></Label>
+        <Label Grid.Row="1" Grid.Column="1" x:Name="l11"></Label>
+        <Label Grid.Row="1" Grid.Column="2" x:Name="l12"></Label>
+        <Label Grid.Row="1" Grid.Column="3" x:Name="l13"></Label>
+        <Label Grid.Row="2" Grid.Column="0" x:Name="l20"></Label>
+        <Label Grid.Row="2" Grid.Column="1" x:Name="l21"></Label>
+        <Label Grid.Row="2" Grid.Column="2" x:Name="l22"></Label>
+        <Label Grid.Row="2" Grid.Column="3" x:Name="l23"></Label>
+        <Label Grid.Row="3" Grid.Column="0" x:Name="l30"></Label>
+        <Label Grid.Row="3" Grid.Column="1" x:Name="l31"></Label>
+        <Label Grid.Row="3" Grid.Column="2" x:Name="l32"></Label>
+        <Label Grid.Row="3" Grid.Column="3" x:Name="l33"></Label>
+    </Grid>
+    
+</Window>

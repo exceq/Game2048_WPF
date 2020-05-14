@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Game2048_WPF
+namespace Game2048
 {
     /// <summary>
     /// Логика взаимодействия для App.xaml
