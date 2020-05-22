@@ -11,10 +11,6 @@ F:\Desktop\Попка\Visual Studio\Game2048_WPF\obj\Debug\Game2048_WPF.csproj.G
 F:\Desktop\Попка\Visual Studio\Game2048_WPF\obj\Debug\Game2048_WPF.csproj.CoreCompileInputs.cache
 F:\Desktop\Попка\Visual Studio\Game2048_WPF\obj\Debug\Game2048_WPF.exe
 F:\Desktop\Попка\Visual Studio\Game2048_WPF\obj\Debug\Game2048_WPF.pdb
-F:\Desktop\Попка\Visual Studio\Game2048_WPF\bin\Debug\DevExpress.Mvvm.dll
-F:\Desktop\Попка\Visual Studio\Game2048_WPF\bin\Debug\DevExpress.Mvvm.UI.dll
-F:\Desktop\Попка\Visual Studio\Game2048_WPF\bin\Debug\DevExpress.Mvvm.pdb
-F:\Desktop\Попка\Visual Studio\Game2048_WPF\bin\Debug\DevExpress.Mvvm.UI.pdb
-F:\Desktop\Попка\Visual Studio\Game2048_WPF\obj\Debug\Game2048_WPF.csproj.CopyComplete
 F:\Desktop\Попка\Visual Studio\Game2048_WPF\obj\Debug\View\MainWindow.g.cs
 F:\Desktop\Попка\Visual Studio\Game2048_WPF\obj\Debug\View\MainWindow.baml
+F:\Desktop\Попка\Visual Studio\Game2048_WPF\obj\Debug\GeneratedInternalTypeHelper.g.cs

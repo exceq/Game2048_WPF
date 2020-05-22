@@ -1,0 +1,13 @@
+0;#cdc1b4;#cdc1b4
+2;#eee4da;#776e65
+4;#ede0c8;#776e65
+8;#f2b179;White
+16;#f59563;White
+32;#f67c5f;White
+64;#f65e3b;White
+128;#edcf72";White
+256;#edcc61;White
+512;#edc850;White
+1024;#edc53f;White
+2048;#ecc501;White
+4096;#ecc501;White

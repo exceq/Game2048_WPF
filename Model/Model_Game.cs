@@ -1,35 +1,40 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace Game2048.Model
 {
-    public class Model_Game
+    public class Model_Game : PropertyChangedClass
     {
         bool gameIsEnd = false;
-        int sum;
+        int sum = 0;
         private int countZero = 0;
 
+        private bool wasMoveTo = false;
+        private Random rnd = new Random();
+        private Map map;
 
         public bool GameIsEnd
         {
             get { return GameIsOver(); }
-            set
+            private set
             {
                 gameIsEnd = value;
+                OnPropertyChanged();
             }
         }
-        public int Size { get { return map.Size; } }
+        
         public int Sum
         {
             get { return sum; }
             private set
             {
                 sum = value;
+                OnPropertyChanged();
             }
         }
 
-        private bool wasMoveTo = false;
-        private Random rnd = new Random();
-        private Map map;  
+        public int Size { get { return map.Size; } set { Size = value; } }
 
         public Model_Game(int size)
         {
@@ -84,7 +89,7 @@ namespace Game2048.Model
                 {
                     int number = map.GetValue(x, y);
                     map.SetValue(x + dx, y + dy, number * 2);
-                    sum += number * 2;
+                    Sum += number * 2;
                     while (map.GetValue(x - dx, y - dy) > 0)
                     {                       
                         map.SetValue(x, y, map.GetValue(x - dx, y - dy));
