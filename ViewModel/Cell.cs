@@ -44,7 +44,7 @@ namespace Game2048.ViewModel
 
         void InitStyles()
         {
-            string path = @"F:\Desktop\Попка\Visual Studio\Game2048_WPF\styles.txt";
+            string path = Environment.CurrentDirectory + "\\styles.txt";
             using (StreamReader st = new StreamReader(path, Encoding.Default))
             {
                 string line;

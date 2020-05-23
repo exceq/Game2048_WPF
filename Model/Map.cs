@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Game2048.Model
+﻿namespace Game2048.Model
 {
     class Map
     {

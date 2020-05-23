@@ -1,7 +1,7 @@
 ﻿<Window x:Class="Game2048.View.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Icon="F:\Desktop\Попка\Visual Studio\Game2048_WPF\logo.ico"
+        Icon="F:\Desktop\Попка\Visual Studio\Game2048_WPF\bin\Debug\logo.ico"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Game2048.ViewModel"
@@ -13,50 +13,67 @@
 
     <Window.Resources>
         <Style TargetType="{x:Type Label}" x:Key="Base">
-        <Setter Property="FontSize" Value="46"/>
-        <Setter Property="FontWeight" Value="Bold"/>
-        <Setter Property="FontFamily" Value="Arial"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
-        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        <Setter Property ="Margin" Value="3"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="Label">
-                    <Grid>
-                        <Rectangle RadiusX="7" RadiusY="7"  Fill="{TemplateBinding Background}"/>
-                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    </Grid>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
+            <Setter Property="FontSize" Value="46"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontFamily" Value="Arial"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property ="Margin" Value="3"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Label">
+                        <Grid>
+                            <Rectangle RadiusX="7" RadiusY="7"  Fill="{TemplateBinding Background}"/>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center">
+                            </ContentPresenter>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
     </Window.Resources>
-    
+
     <Grid x:Name="Area" Background="#c2b29a">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Menu Height="auto" VerticalAlignment="Top" Background="#c2b29a">
+        <Menu Height="auto" VerticalAlignment="Top" Background="#eee4da">
             <MenuItem Header="Размер">
                 <MenuItem x:Name="x2" Header="2х2" Click="GameChange_Click"></MenuItem>
                 <MenuItem x:Name="x3" Header="3х3" Click="GameChange_Click"></MenuItem>
                 <MenuItem x:Name="x4" Header="4х4" Click="GameChange_Click"></MenuItem>
-                <MenuItem x:Name="x5" Header="6х6" Click="GameChange_Click"></MenuItem>
+                <MenuItem x:Name="x8" Header="8х8" Click="GameChange_Click"></MenuItem>
             </MenuItem>
             <MenuItem Header="Restart" Click="Restart_Click"></MenuItem>
         </Menu>
-        <StackPanel Grid.Row="1" x:Name="sp" Orientation="Horizontal">
-            <TextBlock Background="#eee4da" MinHeight="20" MinWidth="70" FontSize="15">
-                <Run Text="Счёт:"/>
-                <Run Text="{Binding Sum, Mode=OneWay}"/>
-            </TextBlock>
-            <!--<TextBlock Margin="5">
-                <Run Text="Game is End:"/>
-                <Run Text="{Binding GameIsEnd, Mode=OneWay}"/>
-            </TextBlock>-->
+        <StackPanel Height="30" Background="#eee4da" Grid.Row="1" x:Name="sp" Orientation="Horizontal" FlowDirection="RightToLeft">
+            <Label MinHeight="20" MinWidth="90" FontSize="15" FontWeight="Light" Margin="5" Background="#c2b29a" Foreground="White">
+                <TextBlock>
+                    <Run Text="Счёт:"/>
+                    <Run Text="{Binding Sum, Mode=OneWay}"/>
+                </TextBlock>
+                <Label.Style>
+                    <Style BasedOn="{StaticResource Base}" TargetType="Label"/>
+                </Label.Style>
+            </Label>
         </StackPanel>
+        <Viewbox Grid.Row="2" Panel.ZIndex="10">
+            <Label MinHeight="25" MinWidth="100" FontWeight="Bold"  Margin="10" FontSize="15" Foreground="#776e65" Background="#eee4da" Opacity="0.9">
+                <Label.Style>
+                    <Style BasedOn="{StaticResource Base}" TargetType="Label">
+                        <Setter Property="Content" Value="Game over!"/>
+                        <Setter Property="Visibility" Value="Hidden"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding GameIsEnd}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Label.Style>
+            </Label>
+        </Viewbox>
         <ItemsControl MinHeight="450" MinWidth="450" Grid.Row="2" ItemsSource="{Binding Cells}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -71,7 +88,7 @@
                                 <Style TargetType="Label" BasedOn="{StaticResource Base}">
                                     <Setter Property="Content" Value="{Binding Value, Mode=OneWay}"/>
                                     <Setter Property="Background" Value="{Binding Background, Mode=OneWay}"/>
-                                    <Setter Property="Foreground" Value="{Binding Foreground, Mode=OneWay}"/>
+                                    <Setter Property="Foreground" Value="{Binding Foreground, Mode=OneWay}"/>                                    
                                 </Style>
                             </Label.Style>
                         </Label>
@@ -79,5 +96,5 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-    </Grid>    
+    </Grid>
 </Window>

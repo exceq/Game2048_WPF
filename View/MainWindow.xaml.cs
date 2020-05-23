@@ -31,7 +31,7 @@ namespace Game2048.View
 
         private void Restart_Click(object sender, RoutedEventArgs e)
         {
-            vm = new MainWindowViewModel(4);
+            vm = new MainWindowViewModel(vm.Size);
             DataContext = vm;
         }
 
@@ -42,7 +42,7 @@ namespace Game2048.View
                 case Key.Up: vm.NextStep(Direction.Up); break;
                 case Key.Down: vm.NextStep(Direction.Down); break;
                 case Key.Left: vm.NextStep(Direction.Left); break;
-                case Key.Right: vm.NextStep(Direction.Right); break;
+                case Key.Right: vm.NextStep(Direction.Right); break; 
             }
         }  
     }

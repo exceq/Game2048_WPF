@@ -66,6 +66,7 @@ namespace Game2048.Model
                     break;
                 }
             }
+            gameIsEnd = GameIsOver();
             return;
         }
 
@@ -174,7 +175,7 @@ namespace Game2048.Model
                     if (map.GetValue(x, y) == map.GetValue(x + 1, y) ||
                         map.GetValue(x, y) == map.GetValue(x, y + 1))
                         return false;
-            gameIsEnd = true;
+            GameIsEnd = true;
             return gameIsEnd;
         }
     }
