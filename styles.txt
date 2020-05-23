@@ -5,7 +5,7 @@
 16;#f59563;White
 32;#f67c5f;White
 64;#f65e3b;White
-128;#edcf72";White
+128;#edcf72;White
 256;#edcc61;White
 512;#edc850;White
 1024;#edc53f;White

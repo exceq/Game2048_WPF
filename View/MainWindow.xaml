@@ -12,92 +12,25 @@
     </Window.DataContext>
 
     <Window.Resources>
-        <ControlTemplate TargetType="Label" x:Key="lbTemplate">
-            <Border CornerRadius="5" BorderBrush="Red" BorderThickness="2">
-                <ContentControl HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            </Border>
-        </ControlTemplate>
-        
         <Style TargetType="{x:Type Label}" x:Key="Base">
-            <Setter Property="FontSize" Value="46"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="FontFamily" Value="Arial"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-            <Setter Property ="Margin" Value="3"/>
-        </Style>
-
-        <Style TargetType="Label" x:Key="0" BasedOn="{StaticResource Base}">
-            <Setter Property="Background" Value="#cdc1b4"></Setter>
-            <Setter Property="Content" Value=" "></Setter> 
-        </Style>
-
-        <Style TargetType="Label" x:Key="label_24" BasedOn="{StaticResource Base}">
-            <Setter Property="Foreground" Value="#776e65"></Setter>
-        </Style>
-        
-        <Style TargetType="Label" x:Key="other" BasedOn="{StaticResource Base}">
-            <Setter Property="Foreground" Value="White"></Setter>
-        </Style>
-
-        <Style TargetType="Label" x:Key="2" BasedOn="{StaticResource label_24}">
-            <Setter Property="Background" Value="#eee4da"></Setter>
-            <Setter Property="Content" Value="2"></Setter>
-        </Style>
-
-        <Style TargetType="Label" x:Key="4" BasedOn="{StaticResource label_24}">
-            <Setter Property="Background" Value="#ede0c8"></Setter>
-            <Setter Property="Content" Value="4"></Setter>
-        </Style>
-
-        <Style TargetType="Label" x:Key="8" BasedOn="{StaticResource other}">
-            <Setter Property="Background" Value="#f2b179"></Setter>
-            <Setter Property="Content" Value="8"></Setter>
-        </Style>
-
-        <Style TargetType="Label" x:Key="16" BasedOn="{StaticResource other}">
-            <Setter Property="Background" Value="#f59563"></Setter>
-            <Setter Property="Content" Value="16"></Setter>
-        </Style>
-
-        <Style TargetType="Label" x:Key="32" BasedOn="{StaticResource other}">
-            <Setter Property="Background" Value="#f67c5f"></Setter>
-            <Setter Property="Content" Value="32"></Setter>
-        </Style>
-
-        <Style TargetType="Label" x:Key="64" BasedOn="{StaticResource other}">
-            <Setter Property="Background" Value="#f65e3b"></Setter>
-            <Setter Property="Content" Value="64"></Setter>
-        </Style>
-
-        <Style TargetType="Label" x:Key="128" BasedOn="{StaticResource other}">
-            <Setter Property="Background" Value="#edcf72"></Setter>
-            <Setter Property="Content" Value="128"></Setter>
-        </Style>
-
-        <Style TargetType="Label" x:Key="256" BasedOn="{StaticResource other}">
-            <Setter Property="Background" Value="#edcc61"></Setter>
-            <Setter Property="Content" Value="256"></Setter>
-        </Style>
-
-        <Style TargetType="Label" x:Key="512" BasedOn="{StaticResource other}">
-            <Setter Property="Background" Value="#edc850"></Setter>
-            <Setter Property="Content" Value="512"></Setter>
-        </Style>
-
-        <Style TargetType="Label" x:Key="1024" BasedOn="{StaticResource other}">    
-            <Setter Property="Background" Value="#edc53f"></Setter>
-            <Setter Property="FontSize" Value="36"></Setter>
-            <Setter Property="Content" Value="1024"></Setter>
-        </Style>
-
-        <Style TargetType="Label" x:Key="2048" BasedOn="{StaticResource other}">
-            <Setter Property="Background" Value="#ecc501"></Setter>
-            <Setter Property="FontSize" Value="36"></Setter>
-            <Setter Property="Content" Value="2048"></Setter>
+        <Setter Property="FontSize" Value="46"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontFamily" Value="Arial"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property ="Margin" Value="3"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Label">
+                    <Grid>
+                        <Rectangle RadiusX="7" RadiusY="7"  Fill="{TemplateBinding Background}"/>
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
         </Style>
     </Window.Resources>
-
     
     <Grid x:Name="Area" Background="#c2b29a">
         <Grid.RowDefinitions>
@@ -110,7 +43,7 @@
                 <MenuItem x:Name="x2" Header="2х2" Click="GameChange_Click"></MenuItem>
                 <MenuItem x:Name="x3" Header="3х3" Click="GameChange_Click"></MenuItem>
                 <MenuItem x:Name="x4" Header="4х4" Click="GameChange_Click"></MenuItem>
-                <MenuItem x:Name="x5" Header="5х5" Click="GameChange_Click"></MenuItem>
+                <MenuItem x:Name="x5" Header="6х6" Click="GameChange_Click"></MenuItem>
             </MenuItem>
             <MenuItem Header="Restart" Click="Restart_Click"></MenuItem>
         </Menu>
@@ -139,30 +72,12 @@
                                     <Setter Property="Content" Value="{Binding Value, Mode=OneWay}"/>
                                     <Setter Property="Background" Value="{Binding Background, Mode=OneWay}"/>
                                     <Setter Property="Foreground" Value="{Binding Foreground, Mode=OneWay}"/>
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="Label">
-                                                <Grid>
-                                                    <Rectangle RadiusX="7" RadiusY="7"  Fill="{TemplateBinding Background}"/>
-                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                </Grid>
-                                            </ControlTemplate>
-                                        </Setter.Value>                                        
-                                    </Setter>
-
                                 </Style>
-                            </Label.Style>                            
+                            </Label.Style>
                         </Label>
                     </Viewbox>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
-            <ItemsControl.ItemContainerStyle>
-                <Style>
-                    <Setter Property="Control.HorizontalContentAlignment" Value="Center"/>
-                    <Setter Property="Control.VerticalContentAlignment" Value="Center"/>
-                </Style>
-            </ItemsControl.ItemContainerStyle>
         </ItemsControl>
-    </Grid>
-    
+    </Grid>    
 </Window>
