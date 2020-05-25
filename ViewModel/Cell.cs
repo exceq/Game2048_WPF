@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Game2048.ViewModel
 {
@@ -18,7 +16,8 @@ namespace Game2048.ViewModel
         
 
         int _value;
-        public int Value { get { return _value; }
+        public int Value {
+            get { return _value; }
             set
             {
                 _value = value;
@@ -41,10 +40,32 @@ namespace Game2048.ViewModel
             } }
 
         string back;
-        public string Background { get { return Value == 0 ? "#cdc1b4" : (Value >= 8192) ? "#ff1d1e": Dict[(int)Math.Log(Value, 2)].Item1; } private set { back = value; OnPropertyChanged(); } }
+        public string Background
+        {
+            get
+            {
+                return Value == 0 ? "#cdc1b4" : (Value >= 8192) ? "#ff1d1e": Dict[(int)Math.Log(Value, 2)].Item1;
+            }
+            private set
+            {
+                back = value;
+                OnPropertyChanged();
+            }
+        }
 
         string fore;
-        public string Foreground { get { return Value == 0 ? "#cdc1b4" : (Value >= 8192) ? "White" : Dict[(int)Math.Log(Value, 2)].Item2; } private set { fore = value; OnPropertyChanged(); } }
+        public string Foreground
+        {
+            get
+            {
+                return Value == 0 ? "#cdc1b4" : (Value >= 8192) ? "White" : Dict[(int)Math.Log(Value, 2)].Item2;
+            }
+            private set
+            {
+                fore = value;
+                OnPropertyChanged();
+            }
+        }
 
 
         void InitStyles()

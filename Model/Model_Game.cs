@@ -29,6 +29,7 @@ namespace Game2048.Model
             map = new Map(size);
             stack = new LinkedList<MapCopy>();
             countZero = Size * Size;
+            Start();
         }
 
         public void Start()
@@ -94,7 +95,7 @@ namespace Game2048.Model
         void AddMapInStack()
         {
             int[,] kart = new int[Size,Size];
-            if (stack.Count >= 19)
+            if (stack.Count >= 20)
                 stack.RemoveFirst();
             for (int x = 0; x < Size; x++)
                 for (int y = 0; y < Size; y++)
