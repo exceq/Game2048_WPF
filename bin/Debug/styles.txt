@@ -10,4 +10,5 @@
 512;#edc850;White
 1024;#edc53f;White
 2048;#ecc501;White
-4096;#ecc501;White
+4096;#ff3d3d;White
+8192;#ff1d1e;White

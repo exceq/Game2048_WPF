@@ -24,12 +24,39 @@
                     <ControlTemplate TargetType="Label">
                         <Grid>
                             <Rectangle RadiusX="7" RadiusY="7"  Fill="{TemplateBinding Background}"/>
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type Button}" x:Key="butt">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Rectangle RadiusX="7" RadiusY="7"  Fill="{TemplateBinding Background}"/>
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center">
                             </ContentPresenter>
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            <Style.Triggers>
+                <Trigger Property="Button.IsEnabled" Value="False">
+                    <Setter Property="Background" Value="#cdc1b4"/>
+                </Trigger>
+                <Trigger Property="Control.IsFocused" Value="True">
+                    <Setter Property="Background" Value="#c2b29a" />
+                </Trigger>
+                <Trigger Property="Control.IsMouseOver" Value="True">
+                    <Setter Property="FontWeight" Value="Bold" />
+                    <Setter Property="Background" Value="#a19480" />
+                </Trigger>
+                <Trigger Property="Button.IsPressed" Value="True">
+                    <Setter Property="Background" Value="#807665" />
+                </Trigger>
+            </Style.Triggers>
         </Style>
     </Window.Resources>
 
@@ -44,22 +71,49 @@
                 <MenuItem x:Name="x2" Header="2х2" Click="GameChange_Click"></MenuItem>
                 <MenuItem x:Name="x3" Header="3х3" Click="GameChange_Click"></MenuItem>
                 <MenuItem x:Name="x4" Header="4х4" Click="GameChange_Click"></MenuItem>
+                <MenuItem x:Name="x6" Header="6х6" Click="GameChange_Click"></MenuItem>
                 <MenuItem x:Name="x8" Header="8х8" Click="GameChange_Click"></MenuItem>
             </MenuItem>
             <MenuItem Header="Restart" Click="Restart_Click"></MenuItem>
         </Menu>
         <StackPanel Height="30" Background="#eee4da" Grid.Row="1" x:Name="sp" Orientation="Horizontal" FlowDirection="RightToLeft">
-            <Label MinHeight="20" MinWidth="90" FontSize="15" FontWeight="Light" Margin="5" Background="#c2b29a" Foreground="White">
+            <Label MinWidth="90" FontSize="15" FontWeight="Light" Margin="5" Background="#c2b29a" Foreground="White">
                 <TextBlock>
                     <Run Text="Счёт:"/>
                     <Run Text="{Binding Sum, Mode=OneWay}"/>
                 </TextBlock>
                 <Label.Style>
-                    <Style BasedOn="{StaticResource Base}" TargetType="Label"/>
+                    <Style TargetType="Label" BasedOn="{StaticResource Base}"/>
                 </Label.Style>
             </Label>
+            <Button Click="Undo_Click" MinWidth="50" Margin="5"
+                     Foreground="White">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource butt}">
+                        <Style.Setters>
+                            <Setter Property="Content" Value="Undo"></Setter>
+                            <Setter Property="Background" Value="#c2b29a"/>
+                        </Style.Setters>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding UndoCount}" Value="0">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.ToolTip>
+                    <ToolTip>
+                        <ToolTip.Content>
+                            <TextBlock>
+                                <Run Text="Осталось откатов: "/>
+                                <Run Text="{Binding UndoCount, Mode=OneWay}"/>
+                            </TextBlock>
+                        </ToolTip.Content>
+                    </ToolTip>
+                </Button.ToolTip>
+            </Button>
         </StackPanel>
-        <Viewbox Grid.Row="2" Panel.ZIndex="10">
+        <Viewbox x:Name="GameOverLabel" Grid.Row="2" Panel.ZIndex="10">
             <Label MinHeight="25" MinWidth="100" FontWeight="Bold"  Margin="10" FontSize="15" Foreground="#776e65" Background="#eee4da" Opacity="0.9">
                 <Label.Style>
                     <Style BasedOn="{StaticResource Base}" TargetType="Label">
@@ -74,7 +128,7 @@
                 </Label.Style>
             </Label>
         </Viewbox>
-        <ItemsControl MinHeight="450" MinWidth="450" Grid.Row="2" ItemsSource="{Binding Cells}">
+        <ItemsControl Grid.Row="2" ItemsSource="{Binding Cells}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <UniformGrid Columns="{Binding Size}" Rows="{Binding Size}"/>

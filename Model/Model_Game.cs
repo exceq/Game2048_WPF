@@ -1,6 +1,6 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Game2048.Model
 {
@@ -8,43 +8,31 @@ namespace Game2048.Model
     {
         bool gameIsEnd = false;
         int sum = 0;
-        private int countZero = 0;
+        int countZero = 0;
+        int undoCount = 0;
+        bool wasMoveTo = false;
 
-        private bool wasMoveTo = false;
-        private Random rnd = new Random();
-        private Map map;
-
-        public bool GameIsEnd
-        {
-            get { return GameIsOver(); }
-            private set
-            {
-                gameIsEnd = value;
-                OnPropertyChanged();
-            }
-        }
-        
-        public int Sum
-        {
-            get { return sum; }
-            private set
-            {
-                sum = value;
-                OnPropertyChanged();
-            }
-        }
+        Random rnd = new Random();
+        Map map;
+        LinkedList<MapCopy> stack;
 
         public int Size { get { return map.Size; } set { Size = value; } }
+
+        public bool GameIsEnd { get { return GameIsOver(); } private set { gameIsEnd = value; OnPropertyChanged(); } }
+
+        public int Sum { get { return sum; } private set { sum = value; OnPropertyChanged(); } }
+
+        public int UndoCount { get { return undoCount; } private set { undoCount = value; OnPropertyChanged(); } } 
 
         public Model_Game(int size)
         {
             map = new Map(size);
+            stack = new LinkedList<MapCopy>();
+            countZero = Size * Size;
         }
 
         public void Start()
-        {
-            countZero = Size * Size;
-            gameIsEnd = false;
+        {            
             for (int x = 0; x < Size; x++)
                 for (int y = 0; y < Size; y++)
                     map.SetValue(x, y, 0);
@@ -103,23 +91,45 @@ namespace Game2048.Model
                 }
         }
 
+        void AddMapInStack()
+        {
+            int[,] kart = new int[Size,Size];
+            if (stack.Count >= 19)
+                stack.RemoveFirst();
+            for (int x = 0; x < Size; x++)
+                for (int y = 0; y < Size; y++)
+                    kart[x, y] = GetValueFromMap(x, y);
+            stack.AddLast(new MapCopy(Sum, kart));
+            UndoCount = stack.Count;
+        }
+
+        public void Undo()
+        {
+            if (stack.Count > 0)
+            {
+                var mapCopy = stack.Last();
+                stack.RemoveLast();                
+                for (int x = 0; x < Size; x++)
+                    for (int y = 0; y < Size; y++)
+                        map.SetValue(x, y, mapCopy.Map[x, y]);
+                Sum -= Sum - mapCopy.Sum;
+            }
+            UndoCount = stack.Count;
+        }
+
         public void MoveUp()
         {
-            wasMoveTo = false;
             for (int x = 0; x < Size; x++)
             {
                 for (int y = 1; y < Size; y++)
                     MoveTo(x, y, 0, -1);
                 for (int y = 1; y < Size; y++)
-                     Add(x, y, 0, -1);
+                    Add(x, y, 0, -1);
             }
-            if (wasMoveTo)
-                AddRandomValue();
         }
 
         public void MoveDown()
         {
-            wasMoveTo = false;
             for (int x = 0; x < Size; x++)
             {
                 for (int y = Size - 2; y >= 0; y--)
@@ -127,13 +137,10 @@ namespace Game2048.Model
                 for (int y = Size - 2; y >= 0; y--)
                     Add(x, y, 0, +1);
             }
-            if (wasMoveTo)
-                AddRandomValue();
         }
 
         public void MoveLeft()
         {
-            wasMoveTo = false;
             for (int y = 0; y < Size; y++)
             {
                 for (int x = 1; x < Size; x++)
@@ -141,27 +148,32 @@ namespace Game2048.Model
                 for (int x = 1; x < Size; x++)
                     Add(x, y, -1, 0);
             }
-            if (wasMoveTo)
-                AddRandomValue();
         }
 
         public void MoveRight()
         {
-            wasMoveTo = false;
             for (int y = 0; y < Size; y++)
             {
                 for (int x = Size - 2; x >= 0; x--)
                     MoveTo(x, y, +1, 0);
                 for (int x = Size - 2; x >= 0; x--)
                     Add(x, y, +1, 0);
+            }            
+        }
+
+        public void MakeMove(Direction direction)
+        {
+            AddMapInStack();
+            wasMoveTo = false;
+            switch (direction)
+            {
+                case Direction.Up: MoveUp(); break;
+                case Direction.Down: MoveDown(); break;
+                case Direction.Left: MoveLeft(); break;
+                case Direction.Right: MoveRight(); break;
             }
             if (wasMoveTo)
                 AddRandomValue();
-        }
-
-        public int GetValueFromMap(int x, int y)
-        {
-            return map.GetValue(x, y);
         }
 
         private bool GameIsOver()
@@ -177,6 +189,11 @@ namespace Game2048.Model
                         return false;
             GameIsEnd = true;
             return gameIsEnd;
+        }
+
+        public int GetValueFromMap(int x, int y)
+        {
+            return map.GetValue(x, y);
         }
     }
 }

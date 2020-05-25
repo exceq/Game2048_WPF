@@ -1,13 +1,6 @@
 ﻿using Game2048.Model;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Linq;
-using System.IO;
-using System.Text;
-using System;
-using System.Threading;
 
 namespace Game2048.ViewModel
 {
@@ -17,6 +10,7 @@ namespace Game2048.ViewModel
 
         public List<Cell> Cells { get; private set; }
         public bool GameIsEnd => game.GameIsEnd;
+        public int UndoCount => game.UndoCount;
         public int Sum => game.Sum;
         public int Size => game.Size;
 
@@ -39,20 +33,15 @@ namespace Game2048.ViewModel
             game.PropertyChanged += Model_PropertyChanged;
 
             Cells = new List<Cell>();
-            for (int x = 0; x < game.Size; x++)
-                for (int y = 0; y < game.Size; y++)
+            for (int y = 0; y < game.Size; y++)
+                for (int x = 0; x < game.Size; x++)
                     Cells.Add(new Cell { Value = GetValueFromMap(x, y) });
+
         }
 
         public void NextStep(Direction direction)
         {
-            switch (direction)
-            {
-                case Direction.Up: game.MoveUp(); break;
-                case Direction.Down: game.MoveDown(); break;
-                case Direction.Left: game.MoveLeft(); break;
-                case Direction.Right: game.MoveRight(); break;
-            }
+            game.MakeMove(direction);
             UpdateMap();
         }
 
@@ -61,11 +50,16 @@ namespace Game2048.ViewModel
             int i = 0;
             for (int y = 0; y < game.Size; y++)
                 for (int x = 0; x < game.Size; x++)
-                    Cells[i++].Value = GetValueFromMap(x, y);                
+                    Cells[i++].Value = GetValueFromMap(x, y);
         }
 
+        public void Undo()
+        {
+            game.Undo();
+            UpdateMap();
+        }
 
-        public int GetValueFromMap(int x, int y) { Thread.Sleep(5); return game.GetValueFromMap(x, y); }
+        public int GetValueFromMap(int x, int y) => game.GetValueFromMap(x, y);
 
 
         readonly List<string> modelProperties = new List<string>() { "GameIsEnd", "Sum" };

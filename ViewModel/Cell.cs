@@ -9,10 +9,10 @@ namespace Game2048.ViewModel
 {
     public class Cell : PropertyChangedClass
     {
-        static List<Tuple<string, string, string>> Dict;
+        static List<Tuple<string, string>> Dict;
         public Cell()
         {
-            Dict = new List<Tuple<string, string, string>>();
+            Dict = new List<Tuple<string, string>>();
             InitStyles();
         }
         
@@ -27,19 +27,24 @@ namespace Game2048.ViewModel
                     Background = "#cdc1b4";
                     Foreground = "#cdc1b4";
                 }
+                else if (value >= 8192)
+                {
+                    Background = "#ff1d1e";
+                    Foreground = "White";
+                }
                 else
                 {
-                    Background = Dict[(int)Math.Log(_value, 2)].Item2;
-                    Foreground = Dict[(int)Math.Log(_value, 2)].Item3;
+                    Background = Dict[(int)Math.Log(_value, 2)].Item1;
+                    Foreground = Dict[(int)Math.Log(_value, 2)].Item2;
                 }
                 OnPropertyChanged();
             } }
 
         string back;
-        public string Background { get { return Value == 0 ? "#cdc1b4" : Dict[(int)Math.Log(Value, 2)].Item2; } private set { back = value; OnPropertyChanged(); } }
+        public string Background { get { return Value == 0 ? "#cdc1b4" : (Value >= 8192) ? "#ff1d1e": Dict[(int)Math.Log(Value, 2)].Item1; } private set { back = value; OnPropertyChanged(); } }
 
         string fore;
-        public string Foreground { get { return Value == 0 ? "#cdc1b4" : Dict[(int)Math.Log(Value, 2)].Item3; } private set { fore = value; OnPropertyChanged(); } }
+        public string Foreground { get { return Value == 0 ? "#cdc1b4" : (Value >= 8192) ? "White" : Dict[(int)Math.Log(Value, 2)].Item2; } private set { fore = value; OnPropertyChanged(); } }
 
 
         void InitStyles()
@@ -51,7 +56,7 @@ namespace Game2048.ViewModel
                 while ((line = st.ReadLine()) != null)
                 {
                     var items = line.Split(';');
-                    Dict.Add(new Tuple<string, string, string>(items[0], items[1], items[2]));
+                    Dict.Add(new Tuple<string, string>(items[1], items[2]));
                 }
             }
         }

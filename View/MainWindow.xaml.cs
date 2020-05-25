@@ -1,5 +1,4 @@
 ﻿using Game2048.ViewModel;
-using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -35,14 +34,19 @@ namespace Game2048.View
             DataContext = vm;
         }
 
+        private void Undo_Click(object sender, RoutedEventArgs  e)
+        {
+            vm.Undo();
+        }
+
         private void Key_Up(object sender, KeyEventArgs e)
         {
             switch (e.Key)
             {
-                case Key.Up: vm.NextStep(Direction.Up); break;
-                case Key.Down: vm.NextStep(Direction.Down); break;
-                case Key.Left: vm.NextStep(Direction.Left); break;
-                case Key.Right: vm.NextStep(Direction.Right); break; 
+                case Key.Up:    vm.NextStep(Direction.Up);      break;
+                case Key.Down:  vm.NextStep(Direction.Down);    break;
+                case Key.Left:  vm.NextStep(Direction.Left);    break;
+                case Key.Right: vm.NextStep(Direction.Right);   break; 
             }
         }  
     }
