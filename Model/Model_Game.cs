@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Game2048.Model
 {
@@ -92,33 +91,7 @@ namespace Game2048.Model
                 }
         }
 
-        void AddMapInStack()
-        {
-            int[,] kart = new int[Size,Size];
-            if (stack.Count >= 20)
-                stack.RemoveFirst();
-            for (int x = 0; x < Size; x++)
-                for (int y = 0; y < Size; y++)
-                    kart[x, y] = GetValueFromMap(x, y);
-            stack.AddLast(new MapCopy(Sum, kart));
-            UndoCount = stack.Count;
-        }
-
-        public void Undo()
-        {
-            if (stack.Count > 0)
-            {
-                var mapCopy = stack.Last();
-                stack.RemoveLast();                
-                for (int x = 0; x < Size; x++)
-                    for (int y = 0; y < Size; y++)
-                        map.SetValue(x, y, mapCopy.Map[x, y]);
-                Sum -= Sum - mapCopy.Sum;
-            }
-            UndoCount = stack.Count;
-        }
-
-        public void MoveUp()
+        void MoveUp()
         {
             for (int x = 0; x < Size; x++)
             {
@@ -129,7 +102,7 @@ namespace Game2048.Model
             }
         }
 
-        public void MoveDown()
+        void MoveDown()
         {
             for (int x = 0; x < Size; x++)
             {
@@ -140,7 +113,7 @@ namespace Game2048.Model
             }
         }
 
-        public void MoveLeft()
+        void MoveLeft()
         {
             for (int y = 0; y < Size; y++)
             {
@@ -151,7 +124,7 @@ namespace Game2048.Model
             }
         }
 
-        public void MoveRight()
+        void MoveRight()
         {
             for (int y = 0; y < Size; y++)
             {
@@ -164,24 +137,53 @@ namespace Game2048.Model
 
         public void MakeMove(Direction direction)
         {
-            AddMapInStack();
+            if (wasMoveTo) AddMapInStack();
             wasMoveTo = false;
             switch (direction)
             {
-                case Direction.Up: MoveUp(); break;
-                case Direction.Down: MoveDown(); break;
-                case Direction.Left: MoveLeft(); break;
-                case Direction.Right: MoveRight(); break;
+                case Direction.Up:      MoveUp();       break;
+                case Direction.Down:    MoveDown();     break;
+                case Direction.Left:    MoveLeft();     break;
+                case Direction.Right:   MoveRight();    break;
             }
             if (wasMoveTo)
-                AddRandomValue();
+                AddRandomValue();           
+        }
+
+        void AddMapInStack()
+        {
+            int[,] kart = new int[Size, Size];
+            if (stack.Count >= 20)
+                stack.RemoveFirst();
+            for (int x = 0; x < Size; x++)
+                for (int y = 0; y < Size; y++)
+                    kart[x, y] = GetValueFromMap(x, y);
+            stack.AddLast(new MapCopy(Sum, kart, GameIsEnd, countZero, wasMoveTo));
+            UndoCount = stack.Count;
+        }
+
+        public void Undo()
+        {
+            if (stack.Count > 0)
+            {
+                var mapCopy = stack.Last.Value;
+                stack.RemoveLast();
+                Sum -= Sum - mapCopy.Sum;
+                GameIsEnd = mapCopy.GameIsEnd;
+                countZero = mapCopy.CountZero;
+                wasMoveTo = mapCopy.WasMoveTo;
+                for (int x = 0; x < Size; x++)
+                    for (int y = 0; y < Size; y++)
+                        map.SetValue(x, y, mapCopy.Map[x, y]);
+            }
+            UndoCount = stack.Count;
         }
 
         private bool GameIsOver()
         {
             if (gameIsEnd)
                 return gameIsEnd;
-            if (countZero != 0)
+            if (countZero > 0)
                 return false;
             for (int x = 0; x < Size; x++)
                 for (int y = 0; y < Size; y++)

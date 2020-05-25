@@ -41,6 +41,7 @@ namespace Game2048.View
 
         private void Key_Up(object sender, KeyEventArgs e)
         {
+            if (vm.GameIsEnd) return;
             switch (e.Key)
             {
                 case Key.Up:    vm.NextStep(Direction.Up);      break;

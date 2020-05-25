@@ -86,7 +86,7 @@
                     <Style TargetType="Label" BasedOn="{StaticResource Base}"/>
                 </Label.Style>
             </Label>
-            <Button Click="Undo_Click" MinWidth="50" Margin="5"
+            <Button x:Name="button" Click="Undo_Click" MinWidth="50" Margin="5"
                      Foreground="White">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}" BasedOn="{StaticResource butt}">
@@ -98,6 +98,12 @@
                             <DataTrigger Binding="{Binding UndoCount}" Value="0">
                                 <Setter Property="IsEnabled" Value="False"/>
                             </DataTrigger>
+                            <DataTrigger Binding="{Binding GameIsEnd}" Value="True">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" Value="Gray"/>
+                            </Trigger>
                         </Style.Triggers>
                     </Style>
                 </Button.Style>
@@ -117,10 +123,12 @@
             <Label MinHeight="25" MinWidth="100" FontWeight="Bold"  Margin="10" FontSize="15" Foreground="#776e65" Background="#eee4da" Opacity="0.9">
                 <Label.Style>
                     <Style BasedOn="{StaticResource Base}" TargetType="Label">
-                        <Setter Property="Content" Value="Game over!"/>
-                        <Setter Property="Visibility" Value="Hidden"/>
+                        <Setter Property="Content" Value="Game over!"/>                        
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding GameIsEnd}" Value="True">
+                            <DataTrigger Binding="{Binding GameIsEnd, Mode=OneWay}" Value="False">
+                                <Setter Property="Visibility" Value="Hidden"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding GameIsEnd, Mode=OneWay}" Value="True">
                                 <Setter Property="Visibility" Value="Visible"/>
                             </DataTrigger>
                         </Style.Triggers>
