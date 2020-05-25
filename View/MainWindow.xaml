@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Game2048.ViewModel"
         mc:Ignorable="d"        
-        Title="2048" Height="570" Width="500" KeyUp="Key_Up" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
+        Title="2048" Height="570" Width="500" KeyUp="Key_Up" WindowStartupLocation="CenterScreen" ResizeMode="CanResize">
     <Window.DataContext>
         <local:MainWindowViewModel/>
     </Window.DataContext>
@@ -128,7 +128,7 @@
                 </Label.Style>
             </Label>
         </Viewbox>
-        <ItemsControl Grid.Row="2" ItemsSource="{Binding Cells}">
+        <ItemsControl Grid.Row="2" ItemsSource="{Binding Cells}" HorizontalAlignment="Center" VerticalAlignment="Center">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <UniformGrid Columns="{Binding Size}" Rows="{Binding Size}"/>
