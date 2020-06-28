@@ -14,3 +14,19 @@ F:\Desktop\Попка\Visual Studio\Game2048_WPF\obj\Debug\Game2048_WPF.pdb
 F:\Desktop\Попка\Visual Studio\Game2048_WPF\obj\Debug\View\MainWindow.g.cs
 F:\Desktop\Попка\Visual Studio\Game2048_WPF\obj\Debug\View\MainWindow.baml
 F:\Desktop\Попка\Visual Studio\Game2048_WPF\obj\Debug\GeneratedInternalTypeHelper.g.cs
+F:\Desktop\Попка\Game2048_WPF\bin\Debug\Game2048_WPF.exe.config
+F:\Desktop\Попка\Game2048_WPF\bin\Debug\Game2048_WPF.exe
+F:\Desktop\Попка\Game2048_WPF\bin\Debug\Game2048_WPF.pdb
+F:\Desktop\Попка\Game2048_WPF\obj\Debug\Game2048_WPF.csprojAssemblyReference.cache
+F:\Desktop\Попка\Game2048_WPF\obj\Debug\View\MainWindow.g.cs
+F:\Desktop\Попка\Game2048_WPF\obj\Debug\App.g.cs
+F:\Desktop\Попка\Game2048_WPF\obj\Debug\GeneratedInternalTypeHelper.g.cs
+F:\Desktop\Попка\Game2048_WPF\obj\Debug\Game2048_WPF_MarkupCompile.cache
+F:\Desktop\Попка\Game2048_WPF\obj\Debug\Game2048_WPF_MarkupCompile.lref
+F:\Desktop\Попка\Game2048_WPF\obj\Debug\View\MainWindow.baml
+F:\Desktop\Попка\Game2048_WPF\obj\Debug\Game2048_WPF.g.resources
+F:\Desktop\Попка\Game2048_WPF\obj\Debug\Game2048_WPF.Properties.Resources.resources
+F:\Desktop\Попка\Game2048_WPF\obj\Debug\Game2048_WPF.csproj.GenerateResource.cache
+F:\Desktop\Попка\Game2048_WPF\obj\Debug\Game2048_WPF.csproj.CoreCompileInputs.cache
+F:\Desktop\Попка\Game2048_WPF\obj\Debug\Game2048_WPF.exe
+F:\Desktop\Попка\Game2048_WPF\obj\Debug\Game2048_WPF.pdb

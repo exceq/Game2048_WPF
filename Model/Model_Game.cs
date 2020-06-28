@@ -56,20 +56,7 @@ namespace Game2048.Model
             }
             gameIsEnd = GameIsOver();
             return;
-        }
-
-        void MoveTo(int x, int y, int dx, int dy)
-        {
-            if (map.GetValue(x, y) > 0)           
-                while (map.GetValue(x + dx, y + dy) == 0)
-                {
-                    map.SetValue(x + dx, y + dy, map.GetValue(x, y));
-                    map.SetValue(x, y, 0);
-                    x += dx;
-                    y += dy;
-                    wasMoveTo = true;
-                }            
-        }
+        }        
 
         void Add(int x, int y, int dx, int dy)
         {
@@ -88,6 +75,19 @@ namespace Game2048.Model
                     wasMoveTo = true;
                     countZero++;
                     map.SetValue(x, y, 0);
+                }
+        }
+
+        void MoveTo(int x, int y, int dx, int dy)
+        {
+            if (map.GetValue(x, y) > 0)
+                while (map.GetValue(x + dx, y + dy) == 0)
+                {
+                    map.SetValue(x + dx, y + dy, map.GetValue(x, y));
+                    map.SetValue(x, y, 0);
+                    x += dx;
+                    y += dy;
+                    wasMoveTo = true;
                 }
         }
 
